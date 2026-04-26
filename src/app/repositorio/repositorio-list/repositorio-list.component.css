@@ -1,0 +1,28 @@
+.repo-card {
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: linear-gradient(to bottom right, #ffffff, #fcfcfc);
+}
+
+.repo-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+.stars-badge {
+  background: rgba(255, 193, 7, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+.card-title {
+  color: #2c3e50;
+  letter-spacing: -0.5px;
+}
