@@ -1,0 +1,19 @@
+.detail-card {
+  border-radius: 20px;
+}
+
+.profile-pic {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border: 5px solid white;
+}
+
+.bg-light {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+}
+
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

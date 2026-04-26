@@ -1,7 +1,22 @@
 <div class="container-fluid mt-4">
+
+  <!-- Zona de Detalle: Se muestra solo cuando hay un usuario seleccionado -->
+  <div *ngIf="selected" class="mb-5">
+    <app-usuario-detail [usuarioDetail]="selectedUsuario"></app-usuario-detail>
+  </div>
+
+  <hr *ngIf="selected" class="mb-5" />
+
+  <!-- Grid de Usuarios (Maestro) -->
+  <h3 class="mb-4 text-center fw-light">Directorio de Usuarios</h3>
   <div class="row">
     <div class="col-md-3 col-sm-6 mb-4" *ngFor="let usuario of usuarios">
-      <div class="card h-100 p-3 shadow-sm border-0 user-card">
+      <!-- Se agrega el evento (click) a la tarjeta -->
+      <div 
+        class="card h-100 p-3 shadow-sm border-0 user-card cursor-pointer" 
+        (click)="onSelected(usuario)"
+        [class.border-primary]="selected && selectedUsuario.id === usuario.id"
+        [class.border]="selected && selectedUsuario.id === usuario.id">
         <div class="text-center">
           <img
             class="card-img-top rounded-circle mt-2 mb-3"

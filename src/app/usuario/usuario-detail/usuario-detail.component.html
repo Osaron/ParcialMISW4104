@@ -1,0 +1,62 @@
+<div class="card shadow-lg border-0 detail-card overflow-hidden">
+  <div class="row g-0">
+    
+    <!-- Lado izquierdo: Avatar grande y background -->
+    <div class="col-md-4 bg-light d-flex flex-column align-items-center justify-content-center p-5 border-end">
+      <img 
+        src="{{ usuarioDetail.avatarUrl }}" 
+        alt="Avatar de {{ usuarioDetail.name }}" 
+        class="img-fluid rounded-circle profile-pic mb-3 shadow">
+      
+      <h3 class="fw-bold mb-0 text-center">{{ usuarioDetail.name }}</h3>
+      <p class="text-muted fs-5 mb-3">&#64;{{ usuarioDetail.username }}</p>
+      
+      <span class="badge rounded-pill fs-6 px-4 py-2 shadow-sm"
+            [ngClass]="{
+              'bg-primary': usuarioDetail.role === 'admin',
+              'bg-success': usuarioDetail.role === 'developer',
+              'bg-warning text-dark': usuarioDetail.role === 'designer'
+            }">
+        {{ usuarioDetail.role | uppercase }}
+      </span>
+    </div>
+
+    <!-- Lado derecho: Detalles de la información -->
+    <div class="col-md-8">
+      <div class="card-body p-5">
+        <h4 class="card-title text-primary border-bottom pb-2 mb-4">
+          Perfil del Usuario
+        </h4>
+        
+        <div class="row mb-4">
+          <div class="col-sm-4 text-muted fw-bold">ID del Sistema</div>
+          <div class="col-sm-8"><span class="badge bg-secondary text-light">#{{ usuarioDetail.id }}</span></div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-sm-4 text-muted fw-bold">Correo Electrónico</div>
+          <div class="col-sm-8"><a href="mailto:{{ usuarioDetail.email }}" class="text-decoration-none">{{ usuarioDetail.email }}</a></div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-sm-4 text-muted fw-bold">Ubicación</div>
+          <div class="col-sm-8"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ usuarioDetail.location }}</div>
+        </div>
+
+        <h5 class="text-secondary mt-5 mb-3 border-bottom pb-2">Repositorios Asociados ({{ usuarioDetail.repoIds.length }})</h5>
+        
+        <div class="d-flex flex-wrap gap-2 mt-3" *ngIf="usuarioDetail.repoIds.length > 0; else noRepos">
+          <span class="badge bg-light text-dark border p-2" *ngFor="let repoId of usuarioDetail.repoIds">
+            <i class="bi bi-journal-code text-primary me-1"></i> Repo ID: {{ repoId }}
+          </span>
+        </div>
+        <ng-template #noRepos>
+          <div class="alert alert-light text-muted border" role="alert">
+            Este usuario no tiene repositorios asociados en este momento.
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>

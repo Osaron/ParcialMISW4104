@@ -10,6 +10,8 @@ import { UsuarioService } from '../usuario.service';
 export class UsuarioListComponent implements OnInit {
 
   usuarios: Array<Usuario> = [];
+  selectedUsuario!: Usuario;
+  selected: boolean = false;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -17,6 +19,11 @@ export class UsuarioListComponent implements OnInit {
     this.usuarioService.getUsuarios().subscribe((usuarios) => {
       this.usuarios = usuarios;
     });
+  }
+
+  onSelected(usuario: Usuario): void {
+    this.selected = true;
+    this.selectedUsuario = usuario;
   }
 
   ngOnInit() {
