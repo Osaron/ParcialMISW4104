@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
 
 @Component({
@@ -9,6 +9,7 @@ import { Usuario } from '../usuario';
 export class UsuarioDetailComponent implements OnInit {
 
   @Input() usuarioDetail!: Usuario;
+  @Output() close = new EventEmitter<void>();
 
   constructor() { }
 

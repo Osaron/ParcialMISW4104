@@ -1,62 +1,58 @@
-<div class="card shadow-lg border-0 detail-card overflow-hidden">
-  <div class="row g-0">
+<div class="drawer-header">
+  <div>
+    <h2 class="drawer-title">Detalles de la Entidad</h2>
+    <p class="drawer-subtitle">Vista Completa</p>
+  </div>
+  <button class="btn-close-drawer" (click)="close.emit()">
+    <i class="bi bi-x-lg"></i>
+  </button>
+</div>
+
+<div class="drawer-body">
+  <div class="profile-main">
+    <img class="profile-avatar" src="{{ usuarioDetail.avatarUrl }}" alt="{{ usuarioDetail.name }}" />
+    <h3 class="profile-name">{{ usuarioDetail.name }}</h3>
+    <p class="profile-meta">{{ usuarioDetail.role | titlecase }} • {{ usuarioDetail.location }}</p>
+    <p class="profile-email"><i class="bi bi-envelope"></i> {{ usuarioDetail.email }}</p>
     
-    <!-- Lado izquierdo: Avatar grande y background -->
-    <div class="col-md-4 bg-light d-flex flex-column align-items-center justify-content-center p-5 border-end">
-      <img 
-        src="{{ usuarioDetail.avatarUrl }}" 
-        alt="Avatar de {{ usuarioDetail.name }}" 
-        class="img-fluid rounded-circle profile-pic mb-3 shadow">
-      
-      <h3 class="fw-bold mb-0 text-center">{{ usuarioDetail.name }}</h3>
-      <p class="text-muted fs-5 mb-3">&#64;{{ usuarioDetail.username }}</p>
-      
-      <span class="badge rounded-pill fs-6 px-4 py-2 shadow-sm"
-            [ngClass]="{
-              'bg-primary': usuarioDetail.role === 'admin',
-              'bg-success': usuarioDetail.role === 'developer',
-              'bg-warning text-dark': usuarioDetail.role === 'designer'
-            }">
-        {{ usuarioDetail.role | uppercase }}
-      </span>
+    <div class="profile-actions">
+      <button class="btn-primary-action">Seguir</button>
+      <button class="btn-outline-action">Mensaje</button>
     </div>
+  </div>
 
-    <!-- Lado derecho: Detalles de la información -->
-    <div class="col-md-8">
-      <div class="card-body p-5">
-        <h4 class="card-title text-primary border-bottom pb-2 mb-4">
-          Perfil del Usuario
-        </h4>
-        
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted fw-bold">ID del Sistema</div>
-          <div class="col-sm-8"><span class="badge bg-secondary text-light">#{{ usuarioDetail.id }}</span></div>
-        </div>
+  <div class="stats-row">
+    <div class="stat-box">
+      <span class="stat-label">Seguidores</span>
+      <span class="stat-value">12.4k</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-label">Contribuciones</span>
+      <span class="stat-value">2.1k</span>
+    </div>
+  </div>
 
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted fw-bold">Correo Electrónico</div>
-          <div class="col-sm-8"><a href="mailto:{{ usuarioDetail.email }}" class="text-decoration-none">{{ usuarioDetail.email }}</a></div>
-        </div>
-
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted fw-bold">Ubicación</div>
-          <div class="col-sm-8"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ usuarioDetail.location }}</div>
-        </div>
-
-        <h5 class="text-secondary mt-5 mb-3 border-bottom pb-2">Repositorios Asociados ({{ usuarioDetail.repoIds.length }})</h5>
-        
-        <div class="d-flex flex-wrap gap-2 mt-3" *ngIf="usuarioDetail.repoIds.length > 0; else noRepos">
-          <span class="badge bg-light text-dark border p-2" *ngFor="let repoId of usuarioDetail.repoIds">
-            <i class="bi bi-journal-code text-primary me-1"></i> Repo ID: {{ repoId }}
-          </span>
-        </div>
-        <ng-template #noRepos>
-          <div class="alert alert-light text-muted border" role="alert">
-            Este usuario no tiene repositorios asociados en este momento.
+  <div class="repositories-section">
+    <h4 class="section-title">REPOSITORIOS DESTACADOS</h4>
+    
+    <div class="repo-list">
+      <div class="mini-repo-card" *ngFor="let repoId of usuarioDetail.repoIds.slice(0,3)">
+        <div class="repo-header">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-folder-fill text-primary"></i>
+            <span class="fw-bold text-dark">repo-{{repoId}}</span>
           </div>
-        </ng-template>
-
+          <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill">Público</span>
+        </div>
+        <p class="repo-desc text-muted small mt-2 mb-3">
+          Un servicio de alto rendimiento asíncrono.
+        </p>
+        <div class="repo-meta small text-muted d-flex gap-3">
+          <span><span class="text-warning">●</span> TS</span>
+          <span><i class="bi bi-star"></i> 1.2k</span>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

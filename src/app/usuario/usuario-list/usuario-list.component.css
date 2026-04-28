@@ -1,26 +1,181 @@
-.card-img-top {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border: 3px solid #f8f9fa;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+.page-container {
+  width: 100%;
 }
 
+.page-header {
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.page-title {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  color: #64748b;
+  font-size: 1.05rem;
+}
+
+/* === Flex container: grid + drawer side by side === */
+.content-flex {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.cards-grid-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+/* === CSS Grid with auto-fill for fluid cards === */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* === Card Styles === */
 .user-card {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
 }
 
 .user-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.06);
 }
 
-.badge {
+.selected-card {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.card-status-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.status-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+
+.status-developer { background: #dcfce7; color: #166534; }
+.status-admin { background: #fee2e2; color: #991b1b; }
+.status-designer { background: #fef9c3; color: #854d0e; }
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  object-fit: cover;
+  background: #f1f5f9;
+}
+
+.user-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.25rem 0;
+}
+
+.user-meta {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.skill-tag {
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.card-footer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.mock-avatars {
+  display: flex;
+}
+
+.mock-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  border: 2px solid white;
+  margin-left: -8px;
+}
+.mock-avatar:first-child { margin-left: 0; }
+
+.repo-count {
+  font-size: 0.8rem;
+  color: #94a3b8;
   font-weight: 500;
-  padding: 0.5em 0.8em;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+/* === Side Drawer (In-flow, not overlay) === */
+.side-drawer {
+  width: 400px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+  position: sticky;
+  top: 80px;
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

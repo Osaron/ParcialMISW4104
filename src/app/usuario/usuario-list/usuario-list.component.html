@@ -1,48 +1,62 @@
-<div class="container-fluid mt-4">
-
-  <!-- Zona de Detalle: Se muestra solo cuando hay un usuario seleccionado -->
-  <div *ngIf="selected" class="mb-5">
-    <app-usuario-detail [usuarioDetail]="selectedUsuario"></app-usuario-detail>
+<div class="page-container">
+  
+  <div class="page-header">
+    <h1 class="page-title">Directorio de Usuarios</h1>
+    <p class="page-subtitle">Gestiona y explora el talento de los equipos de ingeniería activos.</p>
   </div>
 
-  <hr *ngIf="selected" class="mb-5" />
+  <div class="content-flex" [class.drawer-open]="selected">
+    <!-- Grid de Usuarios (Maestro) -->
+    <div class="cards-grid-wrapper">
+      <div class="cards-grid">
+        <div *ngFor="let usuario of usuarios">
+          
+          <div 
+            class="user-card" 
+            (click)="onSelected(usuario)"
+            [class.selected-card]="selected && selectedUsuario.id === usuario.id">
+            
+            <div class="card-status-bar">
+              <span class="status-badge status-{{usuario.role}}">{{ usuario.role | uppercase }}</span>
+            </div>
 
-  <!-- Grid de Usuarios (Maestro) -->
-  <h3 class="mb-4 text-center fw-light">Directorio de Usuarios</h3>
-  <div class="row">
-    <div class="col-md-3 col-sm-6 mb-4" *ngFor="let usuario of usuarios">
-      <!-- Se agrega el evento (click) a la tarjeta -->
-      <div 
-        class="card h-100 p-3 shadow-sm border-0 user-card cursor-pointer" 
-        (click)="onSelected(usuario)"
-        [class.border-primary]="selected && selectedUsuario.id === usuario.id"
-        [class.border]="selected && selectedUsuario.id === usuario.id">
-        <div class="text-center">
-          <img
-            class="card-img-top rounded-circle mt-2 mb-3"
-            src="{{ usuario.avatarUrl }}"
-            alt="{{ usuario.name }}"
-          />
-        </div>
-        <div class="card-body text-center p-0">
-          <h5 class="card-title fw-bold mb-1">{{ usuario.name }}</h5>
-          <p class="text-muted small mb-2">&#64;{{ usuario.username }}</p>
-          <span class="badge rounded-pill" 
-                [ngClass]="{
-                  'bg-primary': usuario.role === 'admin',
-                  'bg-success': usuario.role === 'developer',
-                  'bg-warning text-dark': usuario.role === 'designer'
-                }">
-            {{ usuario.role | titlecase }}
-          </span>
-          <p class="card-text small mt-3 mb-1">
-            <i class="bi bi-geo-alt-fill text-danger"></i> {{ usuario.location }}
-          </p>
-          <p class="card-text small text-muted">
-             {{ usuario.repoIds.length }} repositorios
-          </p>
+            <div class="user-info">
+              <img class="avatar" src="{{ usuario.avatarUrl }}" alt="{{ usuario.name }}" />
+              <div>
+                <h3 class="user-name">{{ usuario.name }}</h3>
+                <p class="user-meta">{{ usuario.role | titlecase }} • {{ usuario.location }}</p>
+              </div>
+            </div>
+
+            <div class="tags-container">
+              <span class="skill-tag" *ngIf="usuario.role === 'developer'">TypeScript</span>
+              <span class="skill-tag" *ngIf="usuario.role === 'developer'">React</span>
+              <span class="skill-tag" *ngIf="usuario.role === 'admin'">DevOps</span>
+              <span class="skill-tag" *ngIf="usuario.role === 'designer'">Figma</span>
+            </div>
+
+            <div class="card-footer-meta">
+              <div class="mock-avatars">
+                <div class="mock-avatar"></div>
+                <div class="mock-avatar"></div>
+              </div>
+              <span class="repo-count">{{ usuario.repoIds.length }} repos compartidos</span>
+            </div>
+
+            <div class="mt-3 pt-3 border-top d-flex justify-content-between align-items-center">
+                <span class="text-primary small fw-bold">Ver detalles</span>
+                <i class="bi bi-arrow-right text-primary"></i>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Panel Lateral de Detalle -->
+    <div class="side-drawer" *ngIf="selected">
+      <app-usuario-detail [usuarioDetail]="selectedUsuario" (close)="selected = false"></app-usuario-detail>
+    </div>
   </div>
+
 </div>

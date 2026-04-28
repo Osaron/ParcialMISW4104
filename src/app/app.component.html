@@ -1,6 +1,23 @@
-<app-usuario-list></app-usuario-list>
+<div class="app-container">
+  <!-- Sidebar Navigation -->
+  <app-sidebar class="sidebar"></app-sidebar>
 
-<div class="container-fluid mt-5 mb-5 border-top pt-5 position-relative">
-  <router-outlet></router-outlet>
-  <app-repositorio-list></app-repositorio-list>
+  <!-- Main Content Area -->
+  <main class="main-content">
+    
+    <!-- Optional Global Header / Search Bar space -->
+    <header class="main-header">
+      <div class="search-container">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Buscar desarrolladores, repos o habilidades..."
+          [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+      </div>
+    </header>
+
+    <!-- Dynamic Routed Content -->
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+    
+  </main>
 </div>
